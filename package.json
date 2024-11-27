@@ -1,0 +1,21 @@
+{
+  "name": "web_project_around_express",
+  "version": "1.0.0",
+  "description": "proyecto de node.js",
+  "main": "index.js",
+  "scripts": {
+    "lint": "npx eslint .",
+    "start":"node app.js",
+    "dev": "nodemon app.js"
+  },
+  "author": "anagiuliaazanedo",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.2.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.31.0"
+  },
+  "dependencies": {
+    "express": "^4.21.1"
+  }
+}
