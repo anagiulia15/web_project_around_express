@@ -1,20 +1,12 @@
 const router = require("express").Router(); // creando un router
-const users = require("../data/users.json"); // ya que estos datos son necesarios para el enrutamiento,
-// debemos importarlo
+const fs = require("fs");
+const path = require("path");
+const mongoose = require("mongoose");
+const { createusers, getusers, getusersbyId } = require("../controllers/users");
 
-router.get("/users", (req, res) => {
-  res.send(users);
-});
+//  module.exports = mongoose.model('user', userSchema);
+router.get("/users", getusers);
 
-router.get("/users/:id", (req, res) => {
-  const user = users.find((item) => item._id === req.params.id);
-  if (!user) {
-    res.send({
-      message: "Recurso no encontrado",
-    });
-    return;
-  }
-  res.send(user);
-});
-
+router.get("/users/:id", getusersbyId);
+router.post("/users/", createusers);
 module.exports = router; // exportando el router
