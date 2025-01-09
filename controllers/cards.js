@@ -1,8 +1,7 @@
 const cards = require("../models/cards");
-const User = require("../models/user");
-const fs = require("fs");
+const { restart } = require("nodemon");
 
-module.exports.getcards = (req, res) => {
+module.exports.getcard = (req, res) => {
   cards
     .findbyId(req.params.id)
     .then((user) => res.send({ data: user }))
@@ -10,7 +9,7 @@ module.exports.getcards = (req, res) => {
 };
 module.exports.createcard = (req, res) => {
   if (!req.body.name || !req.body.link) {
-    res.status(400).send({ message: "error" });
+    res.status(400).send({ message: "error falta algo" });
   }
 
   const { name, link } = req.body;
@@ -30,19 +29,13 @@ module.exports.deletecard = (req, res) => {
     .catch((err) => res.status(500).send({ message: "Error" }));
 };
 module.exports.getcards = (req, res) => {
-  fs.readFile(filepath, (err, data) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send({ message: "error" });
-      return;
-    }
-  });
+  cards.find().then((cards) => res.send({ data: cards }));
 };
 module.exports.updateLikes = (req, res) => {
   // actualiza el nombre del usuario encontrado por _id
   cards
     .findByIdAndUpdate(req.params.id, { $addToSet: { likes: req.user._id } }) // agrega _id al array si aún no está ahí
-    .then((user) => res.send({ data: cards }))
+    .then((cards) => res.send({ data: cards }))
     .catch((err) => res.status(500).send({ message: "Error" }));
 };
 module.exports.likeCard = (req, res) =>

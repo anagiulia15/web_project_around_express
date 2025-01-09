@@ -1,13 +1,6 @@
 const User = require("../models/user");
 module.exports.getusers = (req, res) => {
-  const filepath = path.join(__dirname, "../data/users.json");
-  fs.readFile(filepath, (err, data) => {
-    if (err) {
-      res.status(500).send({ message: "error" });
-      return;
-    }
-    res.send({ users: data.toString("utf8") });
-  });
+  User.find().then((users) => res.send({ data: users }));
 };
 module.exports.createusers = (req, res) => {};
 module.exports.getusersbyId = (req, res) => {

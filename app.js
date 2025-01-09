@@ -15,7 +15,7 @@ app.use((req, res, next) => {
   next();
 });
 app.use(express.json());
-app.use(routerUsers);
-app.use(routerCards);
+app.use("/", routerUsers);
+app.use("/", routerCards);
 app.use("*", notfound);
 app.listen(3001);
